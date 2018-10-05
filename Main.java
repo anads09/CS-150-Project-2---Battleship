@@ -40,6 +40,8 @@ public class Main {
                 computerBoard.setBoardSize(DEFAULT_BOARD_SIZE, DEFAULT_BOARD_SIZE);
                 playerBoard.setNumShips(DEFAULT_NUM_SHIPS);
                 playerBoard.setNumShips(DEFAULT_NUM_SHIPS);
+                playerBoard.setShips(DEFAULT_NUM_SHIPS);
+               computerBoard.setShips(DEFAULT_NUM_SHIPS);
             }    
         } while (!(askCustom.equalsIgnoreCase("Y")) && !(askCustom.equalsIgnoreCase("N")));
         //System.out.println(playerBoard.getShipLocations());

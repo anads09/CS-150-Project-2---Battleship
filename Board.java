@@ -5,8 +5,6 @@ Program #2
 10/05/2018
 */
 package cs150proj02;
-
-import static cs150proj02.Main.playerBoard;
 import java.util.InputMismatchException;
 import java.util.Random;
 
@@ -28,8 +26,8 @@ public class Board {
     }   
     
     public void initBoard(int size) {
-        for(int row = 0; row < boardSize - 1; row++) {
-            for(int col = 0; col < boardSize - 1; col++) {
+        for(int row = 0; row < size - 1; row++) {
+            for(int col = 0; col < size - 1; col++) {
                 board[row][col] = new Space();
             }
         }
@@ -238,8 +236,8 @@ public class Board {
                 this.numShips = numShips;
                 for(int i = 0; i < numShips; i++) {
                     do {
-                        row = new Random().nextInt(playerBoard.getBoardSize() - 1);
-                        col = new Random().nextInt(playerBoard.getBoardSize() - 1);
+                        row = new Random().nextInt(boardSize - 1);
+                        col = new Random().nextInt(boardSize - 1);
                         if (board[row][col].doesSpaceHaveShip() == true)
                             placeShip(row,row);
                      } while (placeShip(row,col) == false);
