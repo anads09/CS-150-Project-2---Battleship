@@ -18,27 +18,32 @@ public class Main {
     public static void main(String[] args) {       
         
         playerBoard = new Board();
-        computerBoard = new Board();        
-        System.out.print("Do you want to use custom rules? (Y/N) (Custom board size and number of ships): ");
-        if(in.next().equalsIgnoreCase("Y")) {         
-            System.out.print("Enter board size AS ONE INTEGER (e.g. 5 = 5x5 board) 1 - 10. Only first int will be read: ");
-            int size = in.nextInt();
-            playerBoard.setBoardSize(size, size);
-            computerBoard.setBoardSize(size, size);
-            System.out.print("Enter number of ships: ");
-            int numShips = in.nextInt();
-            playerBoard.setNumShips(numShips);
-            playerBoard.setNumShips(numShips);
-            playerBoard.setShips(numShips);
-            computerBoard.setShips(numShips);
-        } else {
-            playerBoard.setBoardSize(DEFAULT_BOARD_SIZE, DEFAULT_BOARD_SIZE);
-            computerBoard.setBoardSize(DEFAULT_BOARD_SIZE, DEFAULT_BOARD_SIZE);
-            playerBoard.setNumShips(DEFAULT_NUM_SHIPS);
-            playerBoard.setNumShips(DEFAULT_NUM_SHIPS);
-        }    
+        computerBoard = new Board();   
+        String askCustom;
+        do {
+            System.out.print("Do you want to use custom rules? (Y/N) (Custom board size and number of ships): ");
+            askCustom = in.next();
+            if(askCustom.equalsIgnoreCase("Y")) {         
+                System.out.print("Enter board size AS ONE INTEGER (e.g. 5 = 5x5 board) 1 - 10. Only first int will be read: ");
+                int size = in.nextInt();
+                playerBoard.setBoardSize(size, size);
+                computerBoard.setBoardSize(size, size);
+                System.out.print("Enter number of ships: ");
+                int numShips = in.nextInt();
+                playerBoard.setNumShips(numShips);
+                playerBoard.setNumShips(numShips);
+                playerBoard.setShips(numShips);
+                computerBoard.setShips(numShips);
+            
+            } else {
+                playerBoard.setBoardSize(DEFAULT_BOARD_SIZE, DEFAULT_BOARD_SIZE);
+                computerBoard.setBoardSize(DEFAULT_BOARD_SIZE, DEFAULT_BOARD_SIZE);
+                playerBoard.setNumShips(DEFAULT_NUM_SHIPS);
+                playerBoard.setNumShips(DEFAULT_NUM_SHIPS);
+            }    
+        } while (!(askCustom.equalsIgnoreCase("Y")) && !(askCustom.equalsIgnoreCase("N")));
         //System.out.println(playerBoard.getShipLocations());
-        //System.out.println(computerBoard.getShipLocations());
+        System.out.println(computerBoard.getShipLocations());
         int numTurns = 1;
            do {
                 printPlayerBoard();
