@@ -15,7 +15,6 @@ public class Space {
     private String value;
     private boolean hasShip;
     private boolean hasBeenShotAt = false;
-    //private boolean hasWreckage = false;
     
     public Space () {
         value = BLANK;

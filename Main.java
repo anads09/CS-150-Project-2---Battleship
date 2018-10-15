@@ -9,6 +9,7 @@ package cs150proj02;
 import java.util.*;
 
 public class Main {
+    
     static Board playerBoard;
     static Board computerBoard;
     static Scanner in = new Scanner(System.in);
@@ -20,6 +21,8 @@ public class Main {
         playerBoard = new Board();
         computerBoard = new Board();   
         String askCustom;
+        int row;
+        int col;
         do {
             System.out.print("Do you want to use custom rules? (Y/N) (Custom board size and number of ships): ");
             askCustom = in.next();
@@ -33,8 +36,7 @@ public class Main {
                 playerBoard.setNumShips(numShips);
                 playerBoard.setNumShips(numShips);
                 playerBoard.setShips(numShips);
-                computerBoard.setShips(numShips);
-            
+                computerBoard.setShips(numShips);          
             } else {
                 playerBoard.setBoardSize(DEFAULT_BOARD_SIZE, DEFAULT_BOARD_SIZE);
                 computerBoard.setBoardSize(DEFAULT_BOARD_SIZE, DEFAULT_BOARD_SIZE);
@@ -52,10 +54,14 @@ public class Main {
                 printComputerBoard();
                 System.out.println("Turn #" + numTurns);
                 System.out.println("It's your turn. Make your shot.");
-                System.out.print("Which row? (0.." + (playerBoard.getBoardSize() - 1) + "): ");
-                int row = in.nextInt();
-                System.out.print("Which column? (0.." + (playerBoard.getBoardSize() - 1) + "): ");
-                int col = in.nextInt();
+                do {
+                    System.out.print("Which row? (0.." + (playerBoard.getBoardSize() - 1) + "): ");
+                    row = in.nextInt();
+                    System.out.print("Which column? (0.." + (playerBoard.getBoardSize() - 1) + "): ");
+                    col = in.nextInt();
+                    if(isShotInBounds(row, col) == false)
+                        System.out.println("That space is not on the board. Try again.");
+                } while(row < 0 || row > playerBoard.getBoardSize() - 1 || col > playerBoard.getBoardSize() - 1 || col < 0 );
                 String shotResult = computerBoard.tryShot(row, col);
                 System.out.println(shotResult);
                 System.out.println("Computer's shot: ");
@@ -63,7 +69,6 @@ public class Main {
                 String computerShotResult = computerTryShot();
                 System.out.println(computerShotResult);
                 numTurns++;
-
             } while (hasSomeoneWon(playerBoard, computerBoard) == false);    
            printPlayerBoard();
            printComputerBoard();
@@ -75,6 +80,14 @@ public class Main {
            }
     }
   
+    public static boolean isShotInBounds(int row, int col) {
+        if (row < 0 || row > playerBoard.getBoardSize()- 1 || col > playerBoard.getBoardSize() - 1 || col < 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     public static boolean checkSize(int num) {
         if (num < 0) 
             return true;

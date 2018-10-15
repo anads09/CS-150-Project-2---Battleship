@@ -9,6 +9,7 @@ import java.util.InputMismatchException;
 import java.util.Random;
 
 public class Board {
+    
     private int boardSize;
     private int numShips;
     private int numShipsSunken;
@@ -52,8 +53,7 @@ public class Board {
                         board[row][col] = new Space();
                     }
                 }
-            }
-                
+            }             
         } catch (InputMismatchException ex) {
             System.out.print(ex.getMessage());
             System.exit(1);
@@ -83,8 +83,7 @@ public class Board {
                 this.numShips = numShips;
             } else {
                 throw new InputMismatchException("Error: Number of ships must be between 1 and board size ^ 2");
-            }                    
-                    
+            }                                   
         }catch (InputMismatchException ex) {
             System.out.println(ex.getMessage());
             System.exit(1);
@@ -109,8 +108,7 @@ public class Board {
     
     public String tryShot(int row, int col) {  
         String result = "";
-        try {
-               
+        try {            
             if(row < 0 || row > boardSize - 1 || col < 0 || col > boardSize - 1) {                
                 throw new IndexOutOfBoundsException("Error: Shot was out of bounds.");
             }
@@ -124,20 +122,25 @@ public class Board {
                 board[row][col].destroyShip();
                 numShipsSunken++; 
                 result = HIT;
-        }
-        
+        }      
         // If space is in top left corner only check below and to the right 
         else if(row == 0 && col == 0){
-            if (board[row + 1][col].doesSpaceHaveShip() == true || board[row][col + 1].doesSpaceHaveShip() == true) {
+            if (board[row + 1][col].doesSpaceHaveShip() == true || board[row][col + 1].doesSpaceHaveShip() == true || board[row + 1][col + 1].doesSpaceHaveShip() == true) {
                 board[row][col].setValueToNEAR();
                 result = NEAR_MISS;
             } else {
                 board[row][col].setValueToMISS();
                 result = MISS;
             }  
+        // All methods updated to include ships on corners in near misses
+        /*
+                 !!!       o!o
+            New: !X!  Old: !X!
+                 !!!       o!o
+        */
         // If space is in top right corner only check to the left and below it    
         } else if (row == 0 && col == boardSize - 1) {
-            if(board[row + 1][col].doesSpaceHaveShip() == true || board[row][col - 1].doesSpaceHaveShip() == true){
+            if(board[row + 1][col].doesSpaceHaveShip() == true || board[row][col - 1].doesSpaceHaveShip() == true || board[row + 1][col-1].doesSpaceHaveShip() == true){
                 board[row][col].setValueToNEAR();
                 result = NEAR_MISS;
             } else {
@@ -146,7 +149,7 @@ public class Board {
             }
         // If space is in bottom left corner, only check above and to the right
         } else if(row == boardSize - 1 && col == 0) {
-            if (board[row - 1][col].doesSpaceHaveShip() == true || board[row][col + 1].doesSpaceHaveShip() == true) {
+            if (board[row - 1][col].doesSpaceHaveShip() == true || board[row][col + 1].doesSpaceHaveShip() == true || board[row - 1][col + 1].doesSpaceHaveShip() == true) {
                 board[row][col].setValueToNEAR();
                 result = NEAR_MISS;
             } else {
@@ -155,7 +158,7 @@ public class Board {
             }
         // If space is in bottom right corner only check to the left and above
         } else if (row == boardSize - 1 && col == boardSize - 1) {
-            if(board[row - 1][col].doesSpaceHaveShip() == true || board[row][col - 1].doesSpaceHaveShip() == true) {
+            if(board[row - 1][col].doesSpaceHaveShip() == true || board[row][col - 1].doesSpaceHaveShip() == true || board[row - 1][col - 1].doesSpaceHaveShip() == true) {
                 board[row][col].setValueToNEAR();
                 result = NEAR_MISS;
             } else {
@@ -164,7 +167,7 @@ public class Board {
             }
         // if space is on left edge but not a corner only check above, below, and to the right
         } else if(col == 0  && row != 0 && row != boardSize - 1) {
-            if(board[row][col + 1].doesSpaceHaveShip() == true || board[row - 1][col].doesSpaceHaveShip() == true || board[row + 1][col].doesSpaceHaveShip() == true) {
+            if(board[row][col + 1].doesSpaceHaveShip() == true || board[row - 1][col].doesSpaceHaveShip() == true || board[row + 1][col].doesSpaceHaveShip() == true || board[row - 1][col + 1].doesSpaceHaveShip() == true || board[row - 1][col + 1].doesSpaceHaveShip() == true) {
                 board[row][col].setValueToNEAR();
                 result = NEAR_MISS;
             } else {
@@ -173,7 +176,7 @@ public class Board {
             }
         // If space is on bottom only check right left and above
         } else if (row == boardSize - 1) {
-            if(board[row - 1][col].doesSpaceHaveShip() == true || board[row][col - 1].doesSpaceHaveShip() == true || board[row][col +1].doesSpaceHaveShip() == true) {
+            if(board[row - 1][col].doesSpaceHaveShip() == true || board[row][col - 1].doesSpaceHaveShip() == true || board[row][col +1].doesSpaceHaveShip() == true  || board[row - 1][col - 1].doesSpaceHaveShip() == true || board[row - 1][col + 1].doesSpaceHaveShip() == true) {
                 board[row][col].setValueToNEAR();
                 result = NEAR_MISS;
             } else {
@@ -182,7 +185,7 @@ public class Board {
             }
         // If space is on right edge only check above below and left
         } else if (col == boardSize - 1) {
-            if(board[row][col - 1].doesSpaceHaveShip() == true || board[row - 1][col].doesSpaceHaveShip() == true || board[row + 1][col].doesSpaceHaveShip() == true) {
+            if(board[row][col - 1].doesSpaceHaveShip() == true || board[row - 1][col].doesSpaceHaveShip() == true || board[row + 1][col].doesSpaceHaveShip() == true || board[row - 1][col - 1].doesSpaceHaveShip() == true || board[row + 1][col - 1].doesSpaceHaveShip() == true) {
                 board[row][col].setValueToNEAR();
                 result = NEAR_MISS;
             } else {
@@ -191,7 +194,7 @@ public class Board {
             }
         // If space in on the top but not on edge check below left and right
         } else if (row == 0 && col != 0 && col != boardSize - 1) {
-            if(board[row + 1][col].doesSpaceHaveShip() == true || board[row][col - 1].doesSpaceHaveShip() == true || board[row][col + 1].doesSpaceHaveShip()) {
+            if(board[row + 1][col].doesSpaceHaveShip() == true || board[row][col - 1].doesSpaceHaveShip() == true || board[row][col + 1].doesSpaceHaveShip() || board[row + 1][col - 1].doesSpaceHaveShip() == true || board[row + 1][col + 1].doesSpaceHaveShip() == true) {
                 board[row][col].setValueToNEAR();
                 result = NEAR_MISS;
             } else {
@@ -199,9 +202,11 @@ public class Board {
                 result = MISS;
             }
         }
-        
+        // +- down left ++ down right -+ up right -- up left
         else if (board[row - 1][col].doesSpaceHaveShip() == true || board[row + 1][col].doesSpaceHaveShip() == true 
-                    || board[row][col - 1].doesSpaceHaveShip() == true || board[row][col + 1].doesSpaceHaveShip() == true) {
+              || board[row][col - 1].doesSpaceHaveShip() == true || board[row][col + 1].doesSpaceHaveShip() == true
+              || board[row - 1][col - 1].doesSpaceHaveShip() == true || board[row + 1][col + 1].doesSpaceHaveShip() == true
+              || board[row + 1][col - 1].doesSpaceHaveShip() == true || board[row - 1][col + 1].doesSpaceHaveShip() == true) {
                 board[row][col].setValueToNEAR();    
                 result = NEAR_MISS;                    
             } else {
@@ -259,5 +264,3 @@ public class Board {
         }
     }
 }
-    
-
