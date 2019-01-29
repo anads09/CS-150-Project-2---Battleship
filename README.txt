@@ -1,3 +1,4 @@
+A command line battleship game in which the user plays against a computer opponent that takes random shots, not shooting the same space more than once.
 
 A near miss is when a shot lands next to, or digonal to a ship.
   ...
