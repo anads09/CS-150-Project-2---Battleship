@@ -1,10 +1,4 @@
-/*
-Austin Nadler
-CS150-002
-Program #2
-10/05/2018
-*/
-package cs150proj02;
+package battleship;
 
 import java.util.*;
 
