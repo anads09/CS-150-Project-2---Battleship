@@ -3,6 +3,7 @@ A command line battleship game in which the user plays against a computer oppone
 The player's shot is received by printing the board after every turn and prompting the user for the row and column of the space they want to shoot at.
 
 A near miss is when a shot lands next to, or digonal to a ship.
+Assuming a 3x3 board:
   ...
   !.! <-- There is a ship between these two near misses.
   !.. <-- That is a near miss because of the ship diagonal from it.
