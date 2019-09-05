@@ -5,7 +5,7 @@ public class Space {
     public static final String BLANK = ".";
     public static final String MISS = "o";
     public static final String NEAR = "!";
-    public static final String HIT = "X";    
+    public static final String HIT = "x";    
     private String value;
     private boolean hasShip;
     private boolean hasBeenShotAt = false;
